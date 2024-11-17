@@ -1,0 +1,12 @@
+version: '3'
+services:
+  classificator:
+    build: .
+    stdin_open: true
+    tty: true
+    environment:
+      - AWS_SECRET_KEY_ID=YCAJEDYH8sOEKETe5gXbog3r7
+      - AWS_SECRET_ACCESS_KEY=YCP86xjxXtmSoU5NjJslZIc_JuVjglPdOlQXf3h0
+      - MODEL_NAME=tiny # base
+    volumes:
+      - ./data/:./data/

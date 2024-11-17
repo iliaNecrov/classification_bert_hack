@@ -14,11 +14,9 @@ def create_session() -> boto3.session:
     """
     Создать сессию для работы с хранилищем
     """
-    session = boto3.session.Session()
-
     session = boto3.Session(
-        aws_access_key_id=("YCAJEDYH8sOEKETe5gXbog3r7"),
-        aws_secret_access_key=("YCP86xjxXtmSoU5NjJslZIc_JuVjglPdOlQXf3h0"),
+        aws_access_key_id=(os.environ['AWS_SECRET_KEY_ID']),  # ("YCAJEDYH8sOEKETe5gXbog3r7"),
+        aws_secret_access_key=(os.environ['AWS_SECRET_ACCESS_KEY']),  # ("YCP86xjxXtmSoU5NjJslZIc_JuVjglPdOlQXf3h0"),
         region_name="ru-central1",
     )
 

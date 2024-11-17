@@ -5,17 +5,13 @@ from inference.flair_model import TextClassifierModel
 from utils.model_downloading import download_model
 
 
-model_name = os.environ.get('MODEL_NAME')
+model_name = os.environ['MODEL_NAME']
 download_model(model_name)
 # Ан-комент для Windows
 # import pathlib
 # temp = pathlib.PosixPath
 # pathlib.PosixPath = pathlib.WindowsPath
 model = TextClassifierModel.load("model.pt")
-
-
-
-
 
 if __name__ == "__main__":
     print("---"*10)
