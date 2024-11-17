@@ -12,7 +12,10 @@ ENDPOINT = "https://storage.yandexcloud.net"
 
 def create_session() -> boto3.session:
     """
-    Создать сессию для работы с хранилищем
+    Создать сессию для работы с хранилищем S3.
+    Использует учетные данные AWS из переменных окружения.
+
+    :return: клиент S3 с указанной конечной точкой.
     """
     session = boto3.Session(
         aws_access_key_id=(os.environ['AWS_SECRET_KEY_ID']),  # ("YCAJEDYH8sOEKETe5gXbog3r7"),
@@ -25,16 +28,21 @@ def create_session() -> boto3.session:
 
 def download_model(model_name: str) -> None:
     """
-    Сохранение моделей в контейнер
+    Скачать выбранную модель и её эмбеддинги из хранилища.
+    Файлы сохраняются в текущей директории.
+
+    :param model_name: имя модели для скачивания (например, 'tiny' или 'base').
     """
     s3 = create_session()
 
-    # model
+    # Скачать основную модель (слой)
     print("Скачивание модели...")
     s3.download_file(BUCKET_NAME, MODELS_INFO[model_name]["pt"], "model.pt")
-    # embeddings
+
+    # Скачать эмбеддинги
     print("Скачивание эмбедингов... (Может занять время)")
     emb_path = os.path.basename(MODELS_INFO[model_name]["embeddings"])
     s3.download_file(BUCKET_NAME, MODELS_INFO[model_name]["embeddings"], emb_path)
+
     print("Скачивание прошло успешно!")
     s3.close()

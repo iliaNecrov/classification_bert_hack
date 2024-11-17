@@ -3,7 +3,9 @@ from typing import List, Optional
 
 
 class TextClassifierAbstract(ABC):
-
+    """
+    Класс, позволяющий использовать различные модели с различными фреймворками
+    """
     @classmethod
     def load(cls, model_path: str):
         """Загрузить модель, используя путь до нее"""

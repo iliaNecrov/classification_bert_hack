@@ -6,9 +6,10 @@ from utils.model_abstract import TextClassifierAbstract
 
 DEFAULT_MESSAGE = "Перевод"
 
+
 class TextClassifierModel(TextClassifierAbstract):
     """
-    Используя фреймворк Flair загрузим 
+    Класс для загрузки модели фреймворка Flair
     """
     
     def __init__(self, model: TextClassifier) -> None:
@@ -16,6 +17,11 @@ class TextClassifierModel(TextClassifierAbstract):
 
     @staticmethod
     def __preprocess(texts: List[Optional[str]]) -> List[str]:
+        """
+        Предобработка текстов: заменяет пустые строки на значение по умолчанию.
+        :param texts: список текстов.
+        :return: список предобработанных текстов.
+        """
         texts_ = []
         for text in texts:
             if not isinstance(text, str) or not text:
@@ -28,7 +34,9 @@ class TextClassifierModel(TextClassifierAbstract):
     @classmethod
     def load(cls, model_path: str) -> TextClassifierAbstract:
         """
-        Загрузка BERT-модели для классификации
+        Загрузка BERT-модели для классификации.
+        :param model_path: путь к файлу модели.
+        :return: экземпляр класса с загруженной моделью.
         """
         print("Идет загрузка модели...")
         model = TextClassifier.load(model_path)
@@ -36,6 +44,12 @@ class TextClassifierModel(TextClassifierAbstract):
         return cls(model=model)
     
     def predict(self, texts: List[Optional[str]], batch_size: int = 8) -> List[str]:
+        """
+        Предсказание меток классов для списка текстов.
+        :param texts: список текста для классификации.
+        :param batch_size: размер батча для обработки.
+        :return: список предсказанных меток.
+        """
         texts = self.__preprocess(texts)
         print("Препроцесс прошел успешно!")
         sentences: List[Sentence] = [Sentence(text) for text in texts]
