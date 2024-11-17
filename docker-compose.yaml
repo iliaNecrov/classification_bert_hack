@@ -9,4 +9,4 @@ services:
       - AWS_SECRET_ACCESS_KEY=YCP86xjxXtmSoU5NjJslZIc_JuVjglPdOlQXf3h0
       - MODEL_NAME=tiny # base
     volumes:
-      - ./data/:./data/
+      - ./data:/app/data

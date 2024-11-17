@@ -18,7 +18,9 @@ if __name__ == "__main__":
     try:
         data = pd.read_csv("data/input.tsv", sep='\t', header=None, names=["index", "date", "summ", "texts"])
     except Exception as e:
-        print(f"Похоже, проблема с загрукой файла...\n{str(e)}")
+        print(f"Похоже, проблема с загрукой файла...\n\n\n{str(e)}")
+        print("---" * 10)
+        raise
     
     texts = data["texts"]
     classes = model.predict(texts, 8)
